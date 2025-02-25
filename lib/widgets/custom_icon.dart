@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import '../gen/assets.gen.dart';
+import 'package:tiket_wisata/gen/assets.gen.dart';
 
 class CustomIcon extends StatelessWidget {
   final String assetPath;

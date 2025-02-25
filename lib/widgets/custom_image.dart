@@ -1,5 +1,6 @@
+
 import 'package:flutter/widgets.dart';
-import '../gen/assets.gen.dart';
+import 'package:tiket_wisata/gen/assets.gen.dart';
 
 class CustomImage extends StatelessWidget {
   final String assetPath;
