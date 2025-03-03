@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main_page.dart'; // Import DummyPage
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,10 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Home",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text("Home", style: TextStyle(fontWeight: FontWeight.bold)),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -29,21 +27,44 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.lightBlueAccent, Colors.blue],
-              ),
+              gradient: LinearGradient(colors: [Colors.lightBlueAccent, Colors.blue]),
               borderRadius: BorderRadius.circular(15),
             ),
             child: const Text(
               "Welcome to Home Screen!",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
+
+          // Manual NavItem
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              NavItem(
+                title: "Tickets",
+                icon: Icons.confirmation_number,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DummyPage(title: "Tickets Page")),
+                  );
+                },
+              ),
+              NavItem(
+                title: "Profile",
+                icon: Icons.person,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DummyPage(title: "Profile Page")),
+                  );
+                },
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 10),
 
           // Grid Menu
           Expanded(
@@ -73,10 +94,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 backgroundColor: Colors.blueAccent,
               ),
-              child: const Text(
-                "Explore Now",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+              child: const Text("Explore Now", style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
           ),
         ],
@@ -97,6 +115,36 @@ class HomeScreen extends StatelessWidget {
             Icon(icon, size: 50, color: Colors.blueAccent),
             const SizedBox(height: 10),
             Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// NavItem sebagai Widget Reusable
+class NavItem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const NavItem({required this.title, required this.icon, required this.onTap, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.blueAccent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, size: 30, color: Colors.white),
+            const SizedBox(height: 5),
+            Text(title, style: const TextStyle(color: Colors.white)),
           ],
         ),
       ),
