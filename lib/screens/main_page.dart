@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart'; // Import HomeScreen
+import 'package:tiket_wisata/screens/order_page.dart'; // Pastikan OrderPage di-import
 
 class MainPage extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomeScreen(), // Home Page
+    OrderPage(), // GANTI HomeScreen() ke OrderPage()
     DummyPage(title: "Favorites Page"),
     DummyPage(title: "Profile Page"),
   ];
@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-// Dummy Page untuk halaman lainnya
+// Dummy Page untuk halaman lain
 class DummyPage extends StatelessWidget {
   final String title;
   DummyPage({required this.title});

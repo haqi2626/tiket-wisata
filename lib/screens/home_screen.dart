@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'main_page.dart'; // Import DummyPage
+import 'package:tiket_wisata/screens/main_page.dart';
+import 'package:tiket_wisata/screens/order_page.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DummyPage(title: "Tickets Page")),
+                    MaterialPageRoute(builder: (context) => OrderPage()),
                   );
                 },
               ),
