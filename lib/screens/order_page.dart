@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Import library intl
 import 'package:tiket_wisata/models/product.dart'; // Import model product
+import 'package:tiket_wisata/screens/order_detail_page.dart'; // Import halaman Order Detail Page
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
@@ -33,7 +34,21 @@ class OrderPage extends StatelessWidget {
                 style: const TextStyle(color: Colors.green),
               ),
               onTap: () {
-                // Tambahkan navigasi ke detail produk jika diperlukan
+                // Navigasi ke halaman detail pesanan saat item diklik
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderDetailPage(
+                      orderData: {
+                        'id': product.id.toString(),
+                        'destination': product.name,
+                        'date': '2025-03-10', // Contoh tanggal
+                        'price': currencyFormatter.format(product.price),
+                        'imageUrl': product.imageUrl,
+                      },
+                    ),
+                  ),
+                );
               },
             ),
           );
