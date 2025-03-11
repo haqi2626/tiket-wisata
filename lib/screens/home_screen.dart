@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiket_wisata/screens/main_page.dart';
 import 'package:tiket_wisata/screens/order_page.dart';
+import 'package:tiket_wisata/screens/ticket_page.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -38,33 +39,43 @@ class HomeScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+// Manual NavItem
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    NavItem(
+      title: "Orders",
+      icon: Icons.shopping_cart,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OrderPage()),
+        );
+      },
+    ),
+    NavItem(
+      title: "Tickets",
+      icon: Icons.confirmation_number,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TicketPage()),
+        );
+      },
+    ),
+    NavItem(
+      title: "Profile",
+      icon: Icons.person,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DummyPage(title: "Profile Page")),
+        );
+      },
+    ),
+  ],
+),
 
-          // Manual NavItem
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              NavItem(
-                title: "Tickets",
-                icon: Icons.confirmation_number,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => OrderPage()),
-                  );
-                },
-              ),
-              NavItem(
-                title: "Profile",
-                icon: Icons.person,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DummyPage(title: "Profile Page")),
-                  );
-                },
-              ),
-            ],
-          ),
 
           const SizedBox(height: 10),
 
