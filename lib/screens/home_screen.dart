@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tiket_wisata/screens/main_page.dart';
 import 'package:tiket_wisata/screens/order_page.dart';
 import 'package:tiket_wisata/screens/ticket_page.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,132 +8,80 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home", style: TextStyle(fontWeight: FontWeight.bold)),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.lightBlue, Colors.blueAccent],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-      ),
-      body: Column(
+      body: Stack(
         children: [
-          // Banner Welcome
+          // Gambar Latar
           Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.lightBlueAccent, Colors.blue]),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: const Text(
-              "Welcome to Home Screen!",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-// Manual NavItem
-Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-    NavItem(
-      title: "Orders",
-      icon: Icons.shopping_cart,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => OrderPage()),
-        );
-      },
-    ),
-    NavItem(
-      title: "Tickets",
-      icon: Icons.confirmation_number,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TicketPage()),
-        );
-      },
-    ),
-    NavItem(
-      title: "Profile",
-      icon: Icons.person,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DummyPage(title: "Profile Page")),
-        );
-      },
-    ),
-  ],
-),
-
-
-          const SizedBox(height: 10),
-
-          // Grid Menu
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              padding: const EdgeInsets.all(10),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              children: [
-                _buildMenuItem(Icons.explore, "Explore"),
-                _buildMenuItem(Icons.favorite, "Favorites"),
-                _buildMenuItem(Icons.settings, "Settings"),
-                _buildMenuItem(Icons.info, "About"),
-              ],
-            ),
-          ),
-
-          // Tombol Explore
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                backgroundColor: Colors.blueAccent,
+              image: DecorationImage(
+                image: AssetImage('assets/background.jpg'), // Gantilah dengan path gambar latar Anda
+                fit: BoxFit.cover,
               ),
-              child: const Text("Explore Now", style: TextStyle(fontSize: 18, color: Colors.white)),
+            ),
+          ),
+          // Konten Utama
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                // Banner Selamat Datang
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [Colors.lightBlueAccent, Colors.blue]),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Text(
+                    "Selamat Datang di Pemesanan Tiket!",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Item Navigasi
+                GridView.count(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.5,
+                  padding: const EdgeInsets.all(8),
+                  children: [
+                    NavItem(
+                      title: "Orders",
+                      icon: Icons.shopping_cart,
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => OrderPage()));
+                      },
+                    ),
+                    NavItem(
+                      title: "Tikets",
+                      icon: Icons.confirmation_number,
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TicketPage()));
+                      },
+                    ),
+                    NavItem(
+                      title: "Profile",
+                      icon: Icons.person,
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DummyPage(title: "Halaman Profil")));
+                      },
+                    ),
+                    // Tambahkan lebih banyak item jika diperlukan
+                  ],
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
           ),
         ],
       ),
     );
   }
-
-  Widget _buildMenuItem(IconData icon, String label) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 50, color: Colors.blueAccent),
-            const SizedBox(height: 10),
-            Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
-// NavItem sebagai Widget Reusable
+// NavItem sebagai widget reusable
 class NavItem extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -147,20 +93,32 @@ class NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, size: 30, color: Colors.white),
-            const SizedBox(height: 5),
-            Text(title, style: const TextStyle(color: Colors.white)),
-          ],
+      child: Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Colors.blueAccent,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 40, color: Colors.white),
+              const SizedBox(height: 10),
+              Text(title, style: const TextStyle(color: Colors.white, fontSize: 18)),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+// Halaman Dummy untuk menggambarkan Halaman Profil
+class DummyPage extends StatelessWidget {
+  final String title;
+  const DummyPage({required this.title, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(title: Text(title)), body: Center(child: Text(title)));
   }
 }

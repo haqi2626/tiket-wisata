@@ -33,7 +33,7 @@ class OrderPage extends StatelessWidget {
                 currencyFormatter.format(product.price), // Format harga jadi lebih rapi
                 style: const TextStyle(color: Colors.green),
               ),
-              onTap: () {
+            onTap: () {
                 // Navigasi ke halaman detail pesanan saat item diklik
                 Navigator.push(
                   context,
@@ -43,7 +43,7 @@ class OrderPage extends StatelessWidget {
                         'id': product.id.toString(),
                         'destination': product.name,
                         'date': '2025-03-10', // Contoh tanggal
-                        'price': currencyFormatter.format(product.price),
+                        'price': product.price,  // Kirim harga dalam bentuk integer
                         'imageUrl': product.imageUrl,
                       },
                     ),
